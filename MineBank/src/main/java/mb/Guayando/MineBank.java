@@ -1,5 +1,6 @@
 package mb.Guayando;
 
+import mb.Guayando.utils.Metrics;
 import mb.Guayando.config.MessagesConfigManager;
 import mb.Guayando.event.PlayerJoinEventHandler;
 import net.milkbowl.vault.economy.Economy;
@@ -53,6 +54,9 @@ public class MineBank extends JavaPlugin implements Listener {
         registrarComandos();
         registrarEventos();
         comprobarActualizaciones();
+        // Bstats
+        int pluginId = 23185; // <-- Replace with the id of your plugin!
+        Metrics metrics = new Metrics(this, pluginId);
     }
 
     @Override
