@@ -52,7 +52,7 @@ public class MineBank extends JavaPlugin implements Listener {
         new BankTask(this).runTaskTimer(this, interval, interval);
         registrarComandos();
         registrarEventos();
-        //comprobarActualizaciones();
+        comprobarActualizaciones();
     }
 
     @Override
@@ -83,7 +83,7 @@ public class MineBank extends JavaPlugin implements Listener {
 
     public void comprobarActualizaciones(){
         try {
-            HttpURLConnection con = (HttpURLConnection) new URL("https://api.spigotmc.org/legacy/update.php?resource=118952").openConnection();
+            HttpURLConnection con = (HttpURLConnection) new URL("https://api.spigotmc.org/legacy/update.php?resource=119147").openConnection();
             int timed_out = 1250;
             con.setConnectTimeout(timed_out);
             con.setReadTimeout(timed_out);
@@ -91,7 +91,7 @@ public class MineBank extends JavaPlugin implements Listener {
             if (latestversion.length() <= 10) {
                 if(!version.equals(latestversion)){
                     Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(prefix+"&bThere is a new version available. &e(&7"+latestversion+"&e)"));
-                    Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(prefix+"&bYou can download it at:&f https://www.spigotmc.org/resources/118952/"));
+                    Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(prefix+"&bYou can download it at:&f https://www.spigotmc.org/resources/119147/"));
                 }
             }
         } catch (Exception ex) {

@@ -126,7 +126,7 @@ public class ComandoPrincipal implements CommandExecutor {
             noPerm(sender);
             return;
         }
-        String mensaje = "%plugin% &7https://www.spigotmc.org/resources/118952/".replaceAll("%plugin%", MineBank.prefix);
+        String mensaje = "%plugin% &7https://www.spigotmc.org/resources/119147/".replaceAll("%plugin%", MineBank.prefix);
         sender.sendMessage(MessageUtils.getColoredMessage(mensaje));
     }
 

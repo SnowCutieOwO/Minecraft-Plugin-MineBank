@@ -26,7 +26,7 @@ public class UpdateChecker implements Listener{
                     MainConfigManager configManager = plugin.getMainConfigManager();
                     String mensaje = configManager.getUpdateCheckerMessage();
                     if (mensaje != null) {
-                        mensaje = mensaje.replaceAll("%plugin%", MineBank.prefix).replaceAll("%version%", plugin.getVersion()).replaceAll("%latestversion%", plugin.getLatestVersion()).replaceAll("%link%", "https://www.spigotmc.org/resources/118952/");
+                        mensaje = mensaje.replaceAll("%plugin%", MineBank.prefix).replaceAll("%version%", plugin.getVersion()).replaceAll("%latestversion%", plugin.getLatestVersion()).replaceAll("%link%", "https://www.spigotmc.org/resources/119147/");
                         jugador.sendMessage(ChatColor.translateAlternateColorCodes('&', mensaje));
                     }
                 }
