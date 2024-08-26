@@ -31,7 +31,7 @@ messages:
 
   # Variables: NA
   help:
-    - '&b&lt;-----------------&aCOMANDOS MINEBANK&b-----------------&gt;'
+    - '&b<-----------------&aCOMANDOS MINEBANK&b----------------->'
     - '&e/minebank help &7Muestra este mensaje'
     - '&e/minebank reload &7Recarga la configuración del plugin'
     - '&e/minebank version &7Muestra la versión del plugin'
@@ -43,15 +43,15 @@ messages:
 
   # Variables: NA
   help-bank:
-    - '&b&lt;-----------------&aCOMANDOS MINEBANK&b-----------------&gt;'
+    - '&b<-----------------&aCOMANDOS MINEBANK&b----------------->'
     - '&e/bank help &7- Muestra este mensaje'
-    - '&e/bank add &lt;cantidad&gt; &7- Deposita dinero'
-    - '&e/bank take &lt;cantidad&gt; &7- Retira dinero'
-    - '&e/bank set &lt;jugador&gt; bal &lt;cantidad&gt; &7- Establece el balance de un jugador'
-    - '&e/bank set &lt;jugador&gt; level &lt;cantidad&gt; &7- Establece el nivel de un jugador'
+    - '&e/bank add <cantidad> &7- Deposita dinero'
+    - '&e/bank take <cantidad> &7- Retira dinero'
+    - '&e/bank set <jugador> bal <cantidad> &7- Establece el dinero de un jugador'
+    - '&e/bank set <jugador> level <cantidad> [true/false] &7- Establece el nivel de un jugador, [true/false] modifica el dinero'
     - '&e/bank top &7- Muestra el top 10 de jugadores con más dinero'
-    - '&e/bank bal &7- Consulta tu balance'
-    - '&e/bank bal &lt;jugador&gt; &7- Consulta el balance de otro jugador'
+    - '&e/bank bal &7- Consulta tu dinero'
+    - '&e/bank bal <jugador> &7- Consulta el dinero de otro jugador'
     - '&e/bank max bal &7- Consulta la capacidad máxima'
     - '&e/bank max level &7- Consulta el nivel máximo'
     - '&e/bank level &7- Consulta tu nivel de banco'
@@ -68,7 +68,7 @@ messages:
 
   # Variables: NA
   permissions:
-    - '&b&lt;-----------------&aPERMISOS MINEBANK&b-----------------&gt;'
+    - '&b<-----------------&aPERMISOS MINEBANK&b----------------->'
     - '&eminebank.* &7- Permisos de OP'
     - '&eminebank.help &7- Permite usar &e/minebank help'
     - '&eminebank.reload &7- Permite usar &e/minebank reload'
@@ -102,13 +102,13 @@ messages:
 bank:
   usage:
     # Variables: %plugin%
-    bank: '%plugin% &eUso: /bank &lt;top/bal/max/level/levelup/add/take/set&gt;'
-    add: '%plugin% &eUso: /bank add &lt;cantidad&gt;'
-    take: '%plugin% &eUso: /bank take &lt;cantidad&gt;'
-    set: '%plugin% &eUso: /bank set &lt;jugador&gt; &lt;bal/level&gt; &lt;cantidad&gt;'
+    bank: '%plugin% &eUso: /bank <top/bal/max/level/levelup/add/take/set>'
+    add: '%plugin% &eUso: /bank add <cantidad>'
+    take: '%plugin% &eUso: /bank take <cantidad>'
+    set: '%plugin% &eUso: /bank set <jugador> <bal/level> <cantidad> [true/false]'
     top: '%plugin% &eUso: /bank top'
-    bal: '%plugin% &eUso: /bank bal, /bank bal &lt;jugador&gt;'
-    max: '%plugin% &eUso: /bank max &lt;bal/level&gt;'
+    bal: '%plugin% &eUso: /bank bal [jugador]'
+    max: '%plugin% &eUso: /bank max <bal/level>'
     level: '%plugin% &eUso: /bank level'
     levelup: '%plugin% &eUso: /bank levelup'
   bal:
