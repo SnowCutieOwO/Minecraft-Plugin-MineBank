@@ -99,11 +99,21 @@ public class ComandoBank implements CommandExecutor {
                 noPerm(sender);
                 return true;
             }
+
+            // Verifica si se proporcionaron suficientes argumentos
             if (args.length < 4) {
                 bankSet(sender);
                 return true;
             }
-            handleSet(sender, args[1], args[2], args[3]);
+
+            // Si hay 5 argumentos, pasa todos a handleSet
+            if (args.length == 5) {
+                handleSet(sender, args[1], args[2], args[3], args[4]);
+            } else {
+                // Si hay 4 argumentos, pasa los primeros 4 a handleSet sin el cuarto argumento opcional
+                handleSet(sender, args[1], args[2], args[3]);
+            }
+            return true; // Asegúrate de retornar true para que el comando se marque como manejado
         } else if (action.equals("help")) {
             getBankHelp(sender);
         } else {
@@ -135,31 +145,41 @@ public class ComandoBank implements CommandExecutor {
 
     private void handleAdd(Player player, String amountString) {
         try {
-            amount = Integer.parseInt(amountString);
-            if (amount <= 0) {
-                depositFailure(player);
-                return;
-            }
-
-            // Verificar si el jugador tiene suficiente dinero
-            if (economy.getBalance(player) < amount) {
-                notEnoughMoneyAdd(player);
-                return;
-            }
-
-            // Retirar el dinero del jugador
-            economy.withdrawPlayer(player, amount);
-
             String playerPath = "bank." + player.getUniqueId() + "." + player.getName();
             int bankBalance = bankConfig.getInt(playerPath + ".balance", 0);
             int level = bankConfig.getInt(playerPath + ".level", 1);
             maxStorage = getMaxStorageAmount(level);
+
+            if (amountString.equalsIgnoreCase("max")) {
+                amount = maxStorage - bankBalance; // Asignar el total restante
+                if (amount <= 0) { // Si ya está en el máximo, no hace nada
+                    balanceExceeds(player);
+                    return;
+                }
+                // Verificar si el jugador tiene suficiente dinero
+                if (economy.getBalance(player) < amount) {
+                    amount = (int) economy.getBalance(player); // Si no tiene suficiente, usar todo su dinero
+                }
+            } else {
+                amount = Integer.parseInt(amountString); // Convertir el string a entero
+                if (amount <= 0) {
+                    depositFailure(player);
+                    return;
+                }
+                // Verificar si el jugador tiene suficiente dinero
+                if (economy.getBalance(player) < amount) {
+                    notEnoughMoneyAdd(player);
+                    return;
+                }
+            }
 
             if (bankBalance + amount > maxStorage) {
                 balanceExceeds(player);
                 return;
             }
 
+            // Retirar el dinero del jugador
+            economy.withdrawPlayer(player, amount);
             // Actualizar el saldo del banco del jugador
             bankConfig.set(playerPath + ".balance", bankBalance + amount);
             plugin.getBankConfigManager().saveConfig();
@@ -169,44 +189,61 @@ public class ComandoBank implements CommandExecutor {
             depositFailure(player);
         }
     }
-
+/*
+bank:
+  interests:
+    min-amount-to-lose: 500 # Min amount of money withdraw to the bank to rest interest
+*/
     private void handleTake(Player player, String amountString) {
         try {
-            amount = Integer.parseInt(amountString);
-            if (amount <= 0) {
-                withdrawFailure(player);
-                return;
-            }
-
             String playerPath = "bank." + player.getUniqueId() + "." + player.getName();
             int bankBalance = bankConfig.getInt(playerPath + ".balance", 0);
+            int level = bankConfig.getInt(playerPath + ".level", 1);
+            int maxStorage = getMaxStorageAmount(level);
+
+            if (amountString.equalsIgnoreCase("max")) {
+                // Calcula la máxima cantidad que puede retirarse sin exceder el maxStorage con intereses
+                interestPercentage = config.getInt("bank.interests.withdraw", 0);
+                double maxWithdrawableAmount = bankBalance / (1 + (double) interestPercentage / 100);
+
+                amount = (int) Math.floor(maxWithdrawableAmount); // Redondear hacia abajo para evitar exceder el límite
+
+                if (amount <= 0) {
+                    withdrawFailure(player);
+                    return;
+                }
+            } else {
+                amount = Integer.parseInt(amountString);
+                if (amount <= 0) {
+                    withdrawFailure(player);
+                    return;
+                }
+            }
 
             if (bankBalance < amount) {
                 withdrawExceeds(player);
                 return;
             }
-            interestPercentage = config.getInt("bank.interests.withdraw", 0);
-            double interest = amount * ((double) interestPercentage / 100); // Corregido a double
-            totalAmount = amount + (int) Math.round(interest); // Aseguramos que totalAmount sea un int
 
-            int level = bankConfig.getInt(playerPath + ".level", 1);
-            int maxStorage = getMaxStorageAmount(level);
+            double interest = amount * ((double) interestPercentage / 100);
+            totalAmount = amount + (int) Math.round(interest);
 
+            // Verificar si el total a retirar excede el maxStorage
             if (totalAmount > maxStorage) {
                 withdrawExceeds(player);
                 return;
             }
 
-            // Verificar si el saldo después de la retirada es negativo
+            // Verificar si el saldo después de la retirada sería negativo
             if (bankBalance - totalAmount < 0) {
                 interestsWithdrawExceeds(player);
                 return;
             }
 
+            // Realizar el retiro
             economy.depositPlayer(player, amount);
             bankConfig.set(playerPath + ".balance", bankBalance - totalAmount);
             plugin.getBankConfigManager().saveConfig();
-
 
             withdrawSuccess(player);
         } catch (NumberFormatException e) {
@@ -303,9 +340,9 @@ public class ComandoBank implements CommandExecutor {
         successLevelUp(player);
     }
 
-    private void handleSet(CommandSender sender, String targetPlayerName, String type, String amountString) {
+    private void handleSet(CommandSender sender, String targetPlayerName, String type, String amountString, String... changeBalanceString) {
         Player player = (Player) sender;
-        this.targetPlayerName = targetPlayerName; // Inicializa targetPlayerName aquí
+        this.targetPlayerName = targetPlayerName;
 
         String uuid = getPlayerUUIDByName(targetPlayerName);
         if (uuid == null) {
@@ -314,32 +351,78 @@ public class ComandoBank implements CommandExecutor {
         }
 
         String playerPath = "bank." + uuid + "." + targetPlayerName;
+
         if (type.equalsIgnoreCase("bal") || type.equalsIgnoreCase("balance")) {
             try {
-                this.amount = Integer.parseInt(amountString); // Inicializa amount aquí
-                bankConfig.set(playerPath + ".balance", amount);
-                plugin.getBankConfigManager().saveConfig();
                 int level = bankConfig.getInt(playerPath + ".level", 1);
                 maxStorage = getMaxStorageAmount(level);
-                if (amount > maxStorage) {
+
+                if (amountString.equalsIgnoreCase("max")) {
+                    this.amount = maxStorage;
+                } else {
+                    this.amount = Integer.parseInt(amountString);
+                }
+
+                if (this.amount > maxStorage) {
                     maxBalance(player);
                     return;
                 }
+
+                bankConfig.set(playerPath + ".balance", this.amount);
+                plugin.getBankConfigManager().saveConfig();
                 setBalanceSuccess(player);
+
             } catch (NumberFormatException e) {
                 depositFailure(player);
             }
         } else if (type.equalsIgnoreCase("level") || type.equalsIgnoreCase("lvl")) {
             try {
-                this.level = Integer.parseInt(amountString); // Inicializa level aquí
                 int maxLevel = getMaxBankLevel();
-                if (level > maxLevel) {
+
+                if (amountString.equalsIgnoreCase("max")) {
+                    this.level = maxLevel;
+                } else {
+                    this.level = Integer.parseInt(amountString);
+                }
+
+                if (this.level > maxLevel) {
                     maxLevel(player);
                     return;
                 }
-                bankConfig.set(playerPath + ".level", level);
+
+                // Obtener el nuevo maxStorage basado en el nivel que se va a establecer
+                maxStorage = getMaxStorageAmount(this.level);
+
+                // Cambiar el nivel del banco
+                bankConfig.set(playerPath + ".level", this.level);
                 plugin.getBankConfigManager().saveConfig();
                 setLevelSuccess(player);
+
+                // Manejo de changeBalanceString
+                if (changeBalanceString.length > 0) {
+                    boolean changeBalance = Boolean.parseBoolean(changeBalanceString[0]);
+
+                    if (changeBalance) {
+                        // Si es true, establecer el balance al maxStorage del nuevo nivel
+                        this.amount = maxStorage;
+                        bankConfig.set(playerPath + ".balance", maxStorage);
+                        plugin.getBankConfigManager().saveConfig();
+                        setBalanceSuccess(player);
+                    } else {
+                        // Si es false, ajustar el balance si excede el maxStorage
+                        int currentBalance = bankConfig.getInt(playerPath + ".balance", 0);
+                        if (currentBalance > maxStorage) {
+                            this.amount = maxStorage;
+                            bankConfig.set(playerPath + ".balance", maxStorage);
+                        } else {
+                            this.amount = currentBalance; // Mantener el balance actual si no excede maxStorage
+                        }
+                        // Guardar los cambios en la configuración después de ajustar el balance
+                        plugin.getBankConfigManager().saveConfig();
+                        setBalanceSuccess(player);
+                    }
+                }
+
             } catch (NumberFormatException e) {
                 depositFailure(player);
             }

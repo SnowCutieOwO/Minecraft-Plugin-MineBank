@@ -64,7 +64,8 @@ bank:
 
   profit:
     min-amount-to-win: 100 # Min amount of money in the bank to receive profit
-    keep-in-bank: 2 # Percentaje of profit for having money in the bank
+    keep-in-bank: 1 # Percentage of profit for having money in the bank
     interval: 300 # Interval in seconds to receive profit
   interests:
-    withdraw: 5 # Percentaje of interest in withdraw money
+    min-amount-to-lose: 500 # Min amount of money withdraw to the bank to rest interest
+    withdraw: 2 # Percentage of interest in withdraw money
