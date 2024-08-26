@@ -25,7 +25,7 @@ public class MessagesConfigManager {
     private String currentLevel;
     private String unlockPriceError, notEnoughMoneyLevelUp, successLevelUp, alreadyMaxLevel;
     private String maxStorage, maxLevelBank;
-    private String receivedProfit, maxStorageProfit;
+    private String receivedProfit, maxStorageProfit, minStorageProfit;
     private String notPlayer, notFoundPlayer;
 
     public MessagesConfigManager(MineBank plugin) {
@@ -113,6 +113,7 @@ public class MessagesConfigManager {
         maxLevelBank = messagesConfig.getString("bank.max.maxLevel");
 
         receivedProfit = messagesConfig.getString("bank.profit.received");
+        minStorageProfit = messagesConfig.getString("bank.profit.min-storage");
         maxStorageProfit = messagesConfig.getString("bank.profit.max-storage");
 
         notPlayer = messagesConfig.getString("bank.notPlayer");
@@ -281,6 +282,10 @@ public class MessagesConfigManager {
 
     public String getReceivedProfit() {
         return receivedProfit;
+    }
+
+    public String getMinStorageProfit(){
+        return minStorageProfit;
     }
 
     public String getMaxStorageProfit() {

@@ -63,7 +63,8 @@ bank:
     # You can add and remove levels if you want
 
   profit:
-    keep-in-bank: 2  # Percentaje of profit for having money in the bank
-    interval: 300  # Interval in seconds to receive profit
+    min-amount-to-win: 100 # Min amount of money in the bank to receive profit
+    keep-in-bank: 2 # Percentaje of profit for having money in the bank
+    interval: 300 # Interval in seconds to receive profit
   interests:
     withdraw: 5 # Percentaje of interest in withdraw money

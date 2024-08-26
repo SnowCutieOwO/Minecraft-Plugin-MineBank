@@ -1,10 +1,12 @@
 package mb.Guayando.commands;
 
 import mb.Guayando.config.MessagesConfigManager;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import mb.Guayando.MineBank;
 import mb.Guayando.utils.MessageUtils;
@@ -17,22 +19,42 @@ public class ComandoPrincipal implements CommandExecutor {
 
     public ComandoPrincipal(MineBank plugin) {
         this.plugin = plugin;
+        reloadConfigs();
+    }
+    public void reloadConfigs() {
+        Economy economy = plugin.getServer().getServicesManager().getRegistration(Economy.class).getProvider();
+        FileConfiguration bankConfig = plugin.getBankConfigManager().getConfig();
+        FileConfiguration messagesConfig = plugin.getMessagesConfigManager().getConfig();
+        FileConfiguration config = plugin.getConfig();
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
+        reloadConfigs();
         if (!(sender instanceof Player)) {
             // Consola
             if (args.length >= 1) {
                 if (args[0].equalsIgnoreCase("reload")) {
-                    // minebank reload
                     plugin.reloadConfig();
                     plugin.getMainConfigManager().reloadConfig();
                     plugin.getMessagesConfigManager().reloadConfig();
                     plugin.getBankConfigManager().reloadConfig();
-                    Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(MineBank.prefix +"&aReload complete."));
+
+                    // Llama a loadConfig() después de recargar
+                    plugin.getMainConfigManager().loadConfig();
+
+                    // Actualizar la configuración en BankTask
+                    if (plugin.getBankTask() != null) {
+                        plugin.getBankTask().setConfig(plugin.getConfig());
+                    }
+
+                    // Reiniciar la tarea del banco después de recargar la configuración
+                    plugin.scheduleBankTask();
+
+                    Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(MineBank.prefix + "&aReload complete."));
                     return true;
                 }
+
                 consoleError(sender); // messages.console-error
                 return true;
             }
@@ -86,7 +108,20 @@ public class ComandoPrincipal implements CommandExecutor {
             return;
         }
         plugin.reloadConfig();
+        plugin.getMainConfigManager().reloadConfig();
         plugin.getMessagesConfigManager().reloadConfig();
+        plugin.getBankConfigManager().reloadConfig();
+
+        // Llama a loadConfig() después de recargar
+        plugin.getMainConfigManager().loadConfig();
+
+        // Actualizar la configuración en BankTask
+        if (plugin.getBankTask() != null) {
+            plugin.getBankTask().setConfig(plugin.getConfig());
+        }
+
+        // Reiniciar la tarea del banco después de recargar la configuración
+        plugin.scheduleBankTask();
         MessagesConfigManager messagesConfigManager = plugin.getMessagesConfigManager();
         String mensaje = messagesConfigManager.getReloadMessage();
         if (mensaje != null) {

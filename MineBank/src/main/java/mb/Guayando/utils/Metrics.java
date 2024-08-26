@@ -48,9 +48,9 @@ import org.bukkit.plugin.Plugin;
 
 public class Metrics {
 
-  private final Plugin plugin;
+  private Plugin plugin;
 
-  private final MetricsBase metricsBase;
+  private MetricsBase metricsBase;
 
   /**
    * Creates a new Metrics instance.

@@ -26,6 +26,10 @@ public class ComandoBank implements CommandExecutor {
 
     public ComandoBank(MineBank plugin) {
         this.plugin = plugin;
+        reloadConfigs(); // Inicializar variables en el constructor
+    }
+
+    public void reloadConfigs() {
         this.economy = plugin.getServer().getServicesManager().getRegistration(Economy.class).getProvider();
         this.bankConfig = plugin.getBankConfigManager().getConfig();
         this.messagesConfig = plugin.getMessagesConfigManager().getConfig();
@@ -34,6 +38,7 @@ public class ComandoBank implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        reloadConfigs();
         if (!(sender instanceof Player)) {
             notPlayer(sender);
             return true;

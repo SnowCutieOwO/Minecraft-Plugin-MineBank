@@ -6,7 +6,7 @@
 
     <groupId>mb.Guayando</groupId>
     <artifactId>MineBank</artifactId>
-    <version>1.0.3</version>
+    <version>test</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

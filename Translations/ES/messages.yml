@@ -166,6 +166,8 @@ bank:
   profit:
     # Variables: %plugin%, $%profit%, %percentage%
     received: '%plugin% &a¡Has recibido $%profit% por mantener tu dinero en el banco!'
+    # Variables: %plugin%, %amount%
+    min-storage: '%plugin% &cNecesita al menos $%amount% en el banco para comenzar a ganar beneficios.'
     # Variables: %plugin%
     max-storage: "%plugin% &cNecesitas retirar dinero del banco para seguir ganando beneficios."
   # Variables: %plugin%

@@ -63,6 +63,7 @@ bank:
     # Puedes agregar y eliminar niveles si lo deseas
 
   profit:
+    min-amount-to-win: 100 # Cantidad mínima de dinero en el banco para recibir ganancias
     keep-in-bank: 2  # Porcentaje de ganancia por tener dinero en el banco
     interval: 300  # Intervalo en segundos para recibir ganancias
   interests:

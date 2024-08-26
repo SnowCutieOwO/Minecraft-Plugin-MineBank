@@ -84,7 +84,7 @@ messages:
   # Variables: %plugin%
   command-no-argument: '%plugin% &7Use &e/minebank help &7to see the command list.'
   no-perm: '%plugin% &cYou don`t have permission to use that command.'
-  console-error: '%plugin% &cYou can`t use that command in consolel.'
+  console-error: '%plugin% &cYou can`t use that command in console.'
 
 # ############################################################################################################# #
 # +-----------------------------------------------------------------------------------------------------------+ #
@@ -166,6 +166,8 @@ bank:
   profit:
     # Variables: %plugin%, $%profit%, %percentage%
     received: '%plugin% &aYou have received $%profit% for keeping your money in the bank!'
+    # Variables: %plugin%, %amount%
+    min-storage: '%plugin% &cYou need al least $%amount% in the bank to start earning benefits.'
     # Variables: %plugin%
     max-storage: '%plugin% &cYou need to withdraw money from the bank to continue earning benefits.'
   # Variables: %plugin%

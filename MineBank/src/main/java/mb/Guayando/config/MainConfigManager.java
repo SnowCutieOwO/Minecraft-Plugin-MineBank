@@ -51,12 +51,11 @@ public class MainConfigManager {
             configFile = new File(plugin.getDataFolder(), "config.yml");
         }
         config = YamlConfiguration.loadConfiguration(configFile);
-
-        // Recargar cualquier archivo de configuración predeterminado del plugin si existe
         InputStream defConfigStream = plugin.getResource("config.yml");
         if (defConfigStream != null) {
             YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream));
             config.setDefaults(defConfig);
+        } else {
         }
     }
 
@@ -67,6 +66,7 @@ public class MainConfigManager {
         keepInBankPercentage = config.getInt("bank.profit.keep-in-bank");
         profitInterval = config.getLong("bank.profit.interval") * 20L; // Convert seconds to ticks
         withdrawInterest = config.getDouble("bank.interests.withdraw");
+        boolean bankUse = config.getBoolean("config.bank-use"); // Nueva línea añadida
     }
 
     public String getUpdateCheckerMessage() {

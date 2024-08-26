@@ -31,27 +31,27 @@ messages:
 
   # Variables: NA
   help:
-    - '&b&lt;-----------------&aCOMMANDS MINEBANK&b-----------------&gt;'
-    - '&e/minebank help &7Show this message'
-    - '&e/minebank reload &7Reload plugin config'
-    - '&e/minebank version &7Show plugin version'
-    - '&e/minebank author &7Show plugin author'
-    - '&e/minebank permissions &7Show plugin permission list'
-    - '&e/minebank plugin &7Show plugin download link'
-    - '&e/bank help &7Show bank command list'
+    - '&b<-----------------&aCOMMANDS MINEBANK&b----------------->'
+    - '&e/minebank help &7- Show this message'
+    - '&e/minebank reload &7- Reload plugin config'
+    - '&e/minebank version &7- Show plugin version'
+    - '&e/minebank author &7- Show plugin author'
+    - '&e/minebank permissions &7- Show plugin permission list'
+    - '&e/minebank plugin &7- Show plugin download link'
+    - '&e/bank help &7- Show bank command list'
     - '&7Aliases: &eminebank&7, &emb'
 
   # Variables: NA
   help-bank:
-    - '&b&lt;-----------------&aCOMMANDS MINEBANK&b-----------------&gt;'
+    - '&b<-----------------&aCOMMANDS MINEBANK&b----------------->'
     - '&e/bank help &7- Show this message'
-    - '&e/bank add &lt;amount&gt; &7- Deposit money'
-    - '&e/bank take &lt;amount&gt; &7- Withdraw money'
-    - '&e/bank set &lt;player&gt; bal &lt;amount&gt; &7- Set player balance'
-    - '&e/bank set &lt;player&gt; level &lt;amount&gt; &7- Set player level'
+    - '&e/bank add <amount> &7- Deposit money'
+    - '&e/bank take <amount> &7- Withdraw money'
+    - '&e/bank set <player> bal <amount> &7- Set player balance'
+    - '&e/bank set <player> level <amount> &7- Set player level'
     - '&e/bank top &7- Show top 10 players with the most money'
     - '&e/bank bal &7- Check your balance'
-    - '&e/bank bal &lt;player&gt; &7- Check another player`s balance'
+    - '&e/bank bal <player> &7- Check another player`s balance'
     - '&e/bank max bal &7- Check maximum capacity'
     - '&e/bank max level &7- Check maximum level'
     - '&e/bank level &7- Check your bank level'
@@ -68,7 +68,7 @@ messages:
 
   # Variables: NA
   permissions:
-    - '&b&lt;-----------------&aPERMISSIONS MINEBANK&b-----------------&gt;'
+    - '&b<-----------------&aPERMISSIONS MINEBANK&b----------------->'
     - '&eminebank.* &7- OP permissions'
     - '&eminebank.help &7- Allow to use &e/minebank help'
     - '&eminebank.reload &7- Allow to use &e/minebank reload'
@@ -84,7 +84,7 @@ messages:
   # Variables: %plugin%
   command-no-argument: '%plugin% &7Use &e/minebank help &7to see the command list.'
   no-perm: '%plugin% &cYou don`t have permission to use that command.'
-  console-error: '%plugin% &cYou can`t use that command in consolel.'
+  console-error: '%plugin% &cYou can`t use that command in console.'
 
 # ############################################################################################################# #
 # +-----------------------------------------------------------------------------------------------------------+ #
@@ -102,13 +102,13 @@ messages:
 bank:
   usage:
     # Variables: %plugin%
-    bank: '%plugin% &eUsage: /bank &lt;top/bal/max/level/levelup/add/take/set&gt;'
-    add: '%plugin% &eUsage: /bank add &lt;amount&gt;'
-    take: '%plugin% &eUsage: /bank take &lt;amount&gt;'
-    set: '%plugin% &eUsage: /bank set &lt;player&gt; &lt;bal/level&gt; &lt;amount&gt;'
+    bank: '%plugin% &eUsage: /bank <top/bal/max/level/levelup/add/take/set>'
+    add: '%plugin% &eUsage: /bank add <amount>'
+    take: '%plugin% &eUsage: /bank take <amount>'
+    set: '%plugin% &eUsage: /bank set <player> <bal/level> <amount>'
     top: '%plugin% &eUsage: /bank top'
-    bal: '%plugin% &eUsage: /bank bal, /bank bal &lt;player&gt;'
-    max: '%plugin% &eUsage: /bank max &lt;bal/level&gt;'
+    bal: '%plugin% &eUsage: /bank bal, /bank bal <player>'
+    max: '%plugin% &eUsage: /bank max <bal/level>'
     level: '%plugin% &eUsage: /bank level'
     levelup: '%plugin% &eUsage: /bank levelup'
   bal:
@@ -162,12 +162,14 @@ bank:
     # Variables: %plugin%, %maxStorage%
     maxStorage: '%plugin% &eThe maximum amount you can store at your current level is: &a$%maxStorage%'
     # Variables: %plugin%, %maxLevel%
-    maxLevel: "%plugin% &aThe maximum bank level is &e%maxLevel%."
+    maxLevel: '%plugin% &aThe maximum bank level is &e%maxLevel%.'
   profit:
     # Variables: %plugin%, $%profit%, %percentage%
     received: '%plugin% &aYou have received $%profit% for keeping your money in the bank!'
+    # Variables: %plugin%, %amount%
+    min-storage: '%plugin% &cYou need al least $%amount% in the bank to start earning benefits.'
     # Variables: %plugin%
-    max-storage: "%plugin% &cYou need to withdraw money from the bank to continue earning benefits."
+    max-storage: '%plugin% &cYou need to withdraw money from the bank to continue earning benefits.'
   # Variables: %plugin%
   notPlayer: '%plugin% &cOnly players can use this command.'
   # Variables: %plugin%, %player%
