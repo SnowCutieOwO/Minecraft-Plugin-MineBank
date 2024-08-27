@@ -1,5 +1,6 @@
 package mb.Guayando.utils;
 
+import mb.Guayando.config.MessagesConfigManager;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,8 +24,8 @@ public class UpdateChecker implements Listener{
             // Verificar si el mensaje de actualización debe enviarse
             if (updateChecker && isOutdatedVersion) {
                 if (jugador.isOp() || jugador.hasPermission("minebank.updatechecker") && !jugador.hasPermission("minebank.admin")) {
-                    MainConfigManager configManager = plugin.getMainConfigManager();
-                    String mensaje = configManager.getUpdateCheckerMessage();
+                    MessagesConfigManager messagesConfigManager = plugin.getMessagesConfigManager();
+                    String mensaje = messagesConfigManager.getUpdateCheckerMessage();
                     if (mensaje != null) {
                         mensaje = mensaje.replaceAll("%plugin%", MineBank.prefix).replaceAll("%version%", plugin.getVersion()).replaceAll("%latestversion%", plugin.getLatestVersion()).replaceAll("%link%", "https://www.spigotmc.org/resources/119147/");
                         jugador.sendMessage(ChatColor.translateAlternateColorCodes('&', mensaje));

@@ -14,6 +14,7 @@ public class MessagesConfigManager {
     private File messagesFile;
     private FileConfiguration messagesConfig;
 
+    private  String updateCheckerMessage, bankDisabledMessage;
     private String reloadMessage, versionMessage, authorMessage, noPermMessage, noArgumentMessage, consoleErrorMessage;
     private List<String> helpMessage, permissionsMessage, helpBankMessage;
     private String bankUsage, bankAdd, bankTake, bankSet, bankTop, bankBal, bankMax, bankLevel, bankLevelup;
@@ -22,7 +23,7 @@ public class MessagesConfigManager {
     private String depositSuccess, balanceExceeds, depositFailure, notEnoughMoneyAdd;
     private String maxBalance, maxLevel, setBalanceSuccess, setLevelSuccess;
     private String title, entry;
-    private String currentLevel;
+    private String yourLevel, playerLevel;
     private String unlockPriceError, notEnoughMoneyLevelUp, successLevelUp, alreadyMaxLevel;
     private String maxStorage, maxLevelBank;
     private String receivedProfit, maxStorageProfit, minStorageProfit;
@@ -60,6 +61,9 @@ public class MessagesConfigManager {
     }
 
     private void loadMessages() {
+        updateCheckerMessage = messagesConfig.getString("config.update-checker");
+        bankDisabledMessage = messagesConfig.getString("config.bank-disabled");
+
         helpMessage = messagesConfig.getStringList("messages.help");
         helpBankMessage = messagesConfig.getStringList("messages.help-bank");
         reloadMessage = messagesConfig.getString("messages.reload");
@@ -102,7 +106,8 @@ public class MessagesConfigManager {
         title = messagesConfig.getString("bank.top.title");
         //entry = messagesConfig.getString("bank.top.entry");
 
-        currentLevel = messagesConfig.getString("bank.level.current");
+        yourLevel = messagesConfig.getString("bank.level.yourLevel");
+        playerLevel = messagesConfig.getString("bank.level.playerLevel");
 
         unlockPriceError = messagesConfig.getString("bank.levelup.unlockPriceError");
         notEnoughMoneyLevelUp = messagesConfig.getString("bank.levelup.notEnoughMoney");
@@ -119,187 +124,151 @@ public class MessagesConfigManager {
         notPlayer = messagesConfig.getString("bank.notPlayer");
         notFoundPlayer = messagesConfig.getString("bank.notFoundPlayer");
     }
+    public String getUpdateCheckerMessage(){
+        return updateCheckerMessage;
+    }
+    public String getBankDisabledMessage(){
+        return bankDisabledMessage;
+    }
 
     public List<String> getHelpMessage() {
         return helpMessage;
     }
-
     public List<String> getHelpBankMessage() {
         return helpBankMessage;
     }
-
     public String getReloadMessage() {
         return reloadMessage;
     }
-
     public String getVersionMessage() {
         return versionMessage;
     }
-
     public String getAuthorMessage() {
         return authorMessage;
     }
-
     public String getNoPermMessage() {
         return noPermMessage;
     }
-
     public String getNoArgumentMessage() {
         return noArgumentMessage;
     }
-
     public String getConsoleErrorMessage() {
         return consoleErrorMessage;
     }
-
     public List<String> getPermissionsMessage() {
         return permissionsMessage;
     }
-
     public String getBankUsage() {
         return bankUsage;
     }
-
     public String getBankAdd() {
         return bankAdd;
     }
-
     public String getBankTake() {
         return bankTake;
     }
-
     public String getBankSet() {
         return bankSet;
     }
-
     public String getBankTop() {
         return bankTop;
     }
-
     public String getBankBal() {
         return bankBal;
     }
-
     public String getBankMax() {
         return bankMax;
     }
-
     public String getBankLevel() {
         return bankLevel;
     }
-
     public String getBankLevelup() {
         return bankLevelup;
     }
-
     public String getYourBalance() {
         return yourBalance;
     }
-
     public String getPlayerBalance() {
         return playerBalance;
     }
-
     public String getWithdrawSuccess() {
         return withdrawSuccess;
     }
-
     public String getWithdrawFailure() {
         return withdrawFailure;
     }
-
     public String getWithdrawExceeds() {
         return withdrawExceeds;
     }
-
     public String getInterestsWithdrawExceeds() {
         return interestsWithdrawExceeds;
     }
-
     public String getDepositSuccess() {
         return depositSuccess;
     }
-
     public String getBalanceExceeds() {
         return balanceExceeds;
     }
-
     public String getDepositFailure() {
         return depositFailure;
     }
-
     public String getNotEnoughMoneyAdd() {
         return notEnoughMoneyAdd;
     }
-
     public String getMaxLevel() {
         return maxLevel;
     }
-
     public String getSetBalanceSuccess() {
         return setBalanceSuccess;
     }
-
     public String getSetLevelSuccess() {
         return setLevelSuccess;
     }
-
     public String getTitle() {
         return title;
     }
-
     public String getEntry() {
         return entry;
     }
-
-    public String getCurrentLevel() {
-        return currentLevel;
+    public String getYourLevel() {
+        return yourLevel;
     }
-
+    public String getPlayerLevel(){
+        return playerLevel;
+    }
     public String getUnlockPriceError() {
         return unlockPriceError;
     }
-
     public String getNotEnoughMoneyLevelUp() {
         return notEnoughMoneyLevelUp;
     }
-
     public String getSuccessLevelUp() {
         return successLevelUp;
     }
-
     public String getAlreadyMaxLevel() {
         return alreadyMaxLevel;
     }
-
     public String getMaxStorage() {
         return maxStorage;
     }
-
     public String getMaxLevelBank() {
         return maxLevelBank;
     }
-
     public String getReceivedProfit() {
         return receivedProfit;
     }
-
     public String getMinStorageProfit(){
         return minStorageProfit;
     }
-
     public String getMaxStorageProfit() {
         return maxStorageProfit;
     }
-
     public String getNotPlayer() {
         return notPlayer;
     }
-
     public String getNotFoundPlayer() {
         return notFoundPlayer;
     }
-
     public String getMaxBalance() {
         return maxBalance;
     }

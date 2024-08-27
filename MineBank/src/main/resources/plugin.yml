@@ -1,6 +1,6 @@
 main: mb.Guayando.MineBank
 name: MineBank
-version: 1.1.2
+version: 1.1.3
 author: Guayando
 api-version: 1.13
 depend: [Vault]
@@ -34,6 +34,6 @@ permissions:
   minebank.use:
     description: Sirve para poder usar el plugin
   minebank.admin:
-    description: Sirve para poder usar /bank set y otros comandos de administrador
+    description: Sirve para poder usar comandos de administrador
   minebank.helpbank:
     description: Sirve para ver lista de comandos de bank

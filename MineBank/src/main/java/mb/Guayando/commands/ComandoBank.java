@@ -45,8 +45,8 @@ public class ComandoBank implements CommandExecutor {
         }
 
         if (!config.getBoolean("config.bank-use")) {
-            MainConfigManager configManager = plugin.getMainConfigManager();
-            String mensaje = configManager.getBankDisabledMessage();
+            MessagesConfigManager messagesConfigManager = plugin.getMessagesConfigManager();
+            String mensaje = messagesConfigManager.getBankDisabledMessage();
             if (mensaje != null) {
                 mensaje = mensaje.replaceAll("%plugin%", MineBank.prefix);
                 sender.sendMessage(MessageUtils.getColoredMessage(mensaje));
@@ -287,9 +287,38 @@ bank:
     }
 
     private void handleLevel(Player player, String targetPlayerName) {
-        String playerPath = "bank." + (targetPlayerName != null ? getPlayerUUIDByName(targetPlayerName) : player.getUniqueId()) + "." + (targetPlayerName != null ? targetPlayerName : player.getName());
-        level = bankConfig.getInt(playerPath + ".level", 1);
-        currentLevel(player);
+        String uuid;
+        String name;
+        this.targetPlayerName = targetPlayerName;
+
+        if (targetPlayerName != null) {
+            uuid = getPlayerUUIDByName(targetPlayerName);
+            name = targetPlayerName;
+
+            // Verifica si el UUID del jugador es válido
+            if (uuid == null) {
+                notFoundPlayer(player);
+                return;
+            }
+
+            // Construye la ruta para el archivo de configuración
+            String playerPath = "bank." + uuid + "." + name;
+
+            // Obtén el nivel del jugador
+            level = bankConfig.getInt(playerPath + ".level", 1);
+
+            // Envía el mensaje adecuado usando playerLevel
+            playerLevel(player);
+        } else {
+            // Construye la ruta para el archivo de configuración del jugador que ejecuta el comando
+            String playerPath = "bank." + player.getUniqueId().toString() + "." + player.getName();
+
+            // Obtén el nivel del jugador
+            level = bankConfig.getInt(playerPath + ".level", 1);
+
+            // Envía el mensaje adecuado usando yourLevel
+            yourLevel(player);
+        }
     }
 
     private void handleLevelUp(Player player) {
@@ -663,11 +692,19 @@ bank:
             sender.sendMessage(MessageUtils.getColoredMessage(mensaje));
         }
     }
-    public void currentLevel(CommandSender sender){
+    public void yourLevel(CommandSender sender){
         MessagesConfigManager messagesConfigManager = plugin.getMessagesConfigManager();
-        String mensaje = messagesConfigManager.getCurrentLevel();
+        String mensaje = messagesConfigManager.getYourLevel();
         if (mensaje != null) {
             mensaje = mensaje.replaceAll("%plugin%", MineBank.prefix).replaceAll("%level%", String.valueOf(level));
+            sender.sendMessage(MessageUtils.getColoredMessage(mensaje));
+        }
+    }
+    public void playerLevel(CommandSender sender){
+        MessagesConfigManager messagesConfigManager = plugin.getMessagesConfigManager();
+        String mensaje = messagesConfigManager.getPlayerLevel();
+        if (mensaje != null) {
+            mensaje = mensaje.replaceAll("%plugin%", MineBank.prefix).replaceAll("%player%", targetPlayerName).replaceAll("%level%", String.valueOf(level));
             sender.sendMessage(MessageUtils.getColoredMessage(mensaje));
         }
     }

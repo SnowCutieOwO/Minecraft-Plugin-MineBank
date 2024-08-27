@@ -31,13 +31,9 @@ config:
 
   # Enable/Disable the bank plugin
   bank-use: true
-  # Variables: %plugin%
-  bank-disabled-message: '%plugin% &cThe bank function is currently disabled'
 
   # Enable/Disable the new version available message (update-message)
   update-checker: true
-  # Variables: %plugin%, %version%, %latestversion%, %link%
-  update-message: '%plugin% &bNew version available &e(&f%latestversion%&e)&b. Download it here: &7%link%'
 
 # ############################################################################################################# #
 # +-----------------------------------------------------------------------------------------------------------+ #

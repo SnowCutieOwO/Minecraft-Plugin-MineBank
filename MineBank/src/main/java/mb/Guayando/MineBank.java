@@ -1,7 +1,6 @@
 package mb.Guayando;
 
-import mb.Guayando.utils.Metrics;
-import mb.Guayando.utils.CheckConfigDefaults;
+import mb.Guayando.utils.*;
 import mb.Guayando.config.MessagesConfigManager;
 import mb.Guayando.event.PlayerJoinEventHandler;
 import net.milkbowl.vault.economy.Economy;
@@ -13,8 +12,6 @@ import mb.Guayando.commands.ComandoPrincipal;
 import mb.Guayando.commands.ComandoBank;
 import mb.Guayando.config.MainConfigManager;
 import mb.Guayando.config.BankConfigManager;
-import mb.Guayando.utils.MessageUtils;
-import mb.Guayando.utils.UpdateChecker;
 import mb.Guayando.tasks.BankTask;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -36,19 +33,24 @@ public class MineBank extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        // Verificar si existe un plugin de economia
+        if (!setupEconomy()) {
+            Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(prefix + "&cVault or an economy plugin not found!"));
+            Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(prefix + "&cPlease ensure Vault and an economy plugin are installed."));
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
         Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage("&9<------------------------------------>"));
         Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(prefix + "&fEnabled, (&aVersion: &b" + version + "&f)"));
         Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(prefix + "&6Thanks for using my plugin :)"));
         Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(prefix + "&eMade by &dGuayando"));
-        if (!setupEconomy()) {
-            Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(prefix + "&cVault not found!"));
-            Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(prefix + "&cPlease ensure Vault and an economy plugin are installed."));
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        } else {
+        if (setupEconomy()) {
             Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage(prefix + "&aVault found and linked successfully."));
         }
         Bukkit.getConsoleSender().sendMessage(MessageUtils.getColoredMessage("&9<------------------------------------>"));
+        /*if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new PlaceholderAPIBank(this).register();
+        }*/
         configManager = new MainConfigManager(this);
         messagesConfigManager = new MessagesConfigManager(this);
         bankConfigManager = new BankConfigManager(this);

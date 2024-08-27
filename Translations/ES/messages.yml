@@ -46,15 +46,22 @@ messages:
     - '&b<-----------------&aCOMANDOS MINEBANK&b----------------->'
     - '&e/bank help &7- Muestra este mensaje'
     - '&e/bank add <cantidad> &7- Deposita dinero'
+    - '&e/bank add max &7- Deposita el maximo de dinero de tu nivel de banco'
     - '&e/bank take <cantidad> &7- Retira dinero'
+    - '&e/bank take max &7- Retira el maximo de dinero que puedes retirar con intereses'
+    - '&e/bank set <player> bal max &7- Establece el dinero de un jugador al maximo de su nivel de banco'
     - '&e/bank set <jugador> bal <cantidad> &7- Establece el dinero de un jugador'
-    - '&e/bank set <jugador> level <cantidad> [true/false] &7- Establece el nivel de un jugador, [true/false] modifica el dinero'
+    - '&e/bank set <player> level max &7- Establece el nivel de un jugador al maximo nivel de banco'
+    - '&e/bank set <jugador> level <nivel> &7- Establece el nivel de un jugador'
+    - '&e/bank set <player> level <nivel> true &7- Establece el nivel de un jugador, y el dinero al maximo del nuevo nivel'
+    - '&e/bank set <player> level <nivel> false &7- Establece el nivel de un jugador, y modifica el dinero si esta por encima del maximo del nivel'
     - '&e/bank top &7- Muestra el top 10 de jugadores con más dinero'
     - '&e/bank bal &7- Consulta tu dinero'
     - '&e/bank bal <jugador> &7- Consulta el dinero de otro jugador'
     - '&e/bank max bal &7- Consulta la capacidad máxima'
     - '&e/bank max level &7- Consulta el nivel máximo'
     - '&e/bank level &7- Consulta tu nivel de banco'
+    - '&e/bank level &7- Consulta el nivel de banco de un jugador'
     - '&e/bank levelup &7- Mejora el nivel de tu cuenta bancaria'
 
   # Variables: %plugin%
@@ -86,6 +93,12 @@ messages:
   no-perm: '%plugin% &cNo tienes permiso para usar ese comando.'
   console-error: '%plugin% &cNo puedes usar ese comando en la consola.'
 
+config:
+  # Variables: %plugin%
+  bank-disabled: '%plugin% &cLa funcion del banco esta desactivada actualmente.'
+  # Variables: %plugin%, %version%, %latestversion%, %link%
+  update-checker: '%plugin% &bNueva version disponible &e(&f%latestversion%&e)&b. Descargala aqui: &7%link%'
+
 # ############################################################################################################# #
 # +-----------------------------------------------------------------------------------------------------------+ #
 # |                                                                                                           | #
@@ -105,9 +118,9 @@ bank:
     bank: '%plugin% &eUso: /bank <top/bal/max/level/levelup/add/take/set>'
     add: '%plugin% &eUso: /bank add <cantidad>'
     take: '%plugin% &eUso: /bank take <cantidad>'
-    set: '%plugin% &eUso: /bank set <jugador> <bal/level> <cantidad> [true/false]'
+    set: '%plugin% &eUso: /bank set <jugador> <bal/level> <cantidad>'
     top: '%plugin% &eUso: /bank top'
-    bal: '%plugin% &eUso: /bank bal [jugador]'
+    bal: '%plugin% &eUso: /bank bal, /bank bal <jugador>'
     max: '%plugin% &eUso: /bank max <bal/level>'
     level: '%plugin% &eUso: /bank level'
     levelup: '%plugin% &eUso: /bank levelup'
@@ -148,7 +161,9 @@ bank:
     entry: '&e%position%. %player%: &a$%balance%'
   level:
     # Variables: %plugin%, %level%
-    current: '%plugin% &eTu nivel bancario es: &a%level%'
+    yourLevel: '%plugin% &eTu nivel de banco es: &a%level%'
+    # Variables: %plugin%, %player%, %level%
+    playerLevel: '%plugin% &eEl nivel de banco de %player% es: &a$%level%'
   levelup:
     # Variables: %plugin%, %unlockPrice%
     notEnoughMoney: '%plugin% &cNo tienes suficiente dinero en el banco para subir de nivel, necesitas $%unlockPrice%'
@@ -162,7 +177,7 @@ bank:
     # Variables: %plugin%, %maxStorage%
     maxStorage: '%plugin% &eLa cantidad máxima que puedes almacenar en tu nivel actual es: &a$%maxStorage%'
     # Variables: %plugin%, %maxLevel%
-    maxLevel: "%plugin% &aEl nivel máximo del banco es &e%maxLevel%."
+    maxLevel: '%plugin% &aEl nivel máximo del banco es &e%maxLevel%.'
   profit:
     # Variables: %plugin%, $%profit%, %percentage%
     received: '%plugin% &a¡Has recibido $%profit% por mantener tu dinero en el banco!'

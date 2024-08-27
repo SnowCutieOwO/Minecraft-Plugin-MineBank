@@ -31,13 +31,9 @@ config:
 
   # Habilitar/Deshabilitar el plugin de banco
   bank-use: true
-  # Variables: %plugin%
-  bank-disabled-message: '%plugin% &cLa función de banco está actualmente deshabilitada'
 
   # Habilitar/Deshabilitar el mensaje de nueva versión disponible (update-message)
   update-checker: true
-  # Variables: %plugin%, %version%, %latestversion%, %link%
-  update-message: '%plugin% &bNueva versión disponible &e(&f%latestversion%&e)&b. Descárgala aquí: &7%link%'
 
 # ############################################################################################################# #
 # +-----------------------------------------------------------------------------------------------------------+ #

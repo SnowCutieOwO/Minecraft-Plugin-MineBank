@@ -47,14 +47,21 @@ messages:
     - '&e/bank help &7- Show this message'
     - '&e/bank add <amount> &7- Deposit money'
     - '&e/bank take <amount> &7- Withdraw money'
+    - '&e/bank add max &7- Deposit the max balance to your bank level'
+    - '&e/bank take max &7- Withdraw the max balance you can withdraw with interests'
+    - '&e/bank set <player> bal max &7- Sets player balance to the max of its level'
+    - '&e/bank set <player> level max &7- Sets player balance to the max bank level'
     - '&e/bank set <player> bal <amount> &7- Set player balance'
-    - '&e/bank set <player> level <amount> [true/false] &7- Set player level, [true/false] modify balance'
+    - '&e/bank set <player> level <level> &7- Set player level to <level>'
+    - '&e/bank set <player> level <level> true &7- Set player level, and set balance to max of the level'
+    - '&e/bank set <player> level <level> false &7- Set player level, and modify balance if is over max of the level'
     - '&e/bank top &7- Show top 10 players with the most money'
     - '&e/bank bal &7- Check your balance'
     - '&e/bank bal <player> &7- Check another player`s balance'
     - '&e/bank max bal &7- Check maximum capacity'
     - '&e/bank max level &7- Check maximum level'
     - '&e/bank level &7- Check your bank level'
+    - '&e/bank level <player> &7- Check your bank level'
     - '&e/bank levelup &7- Level up your bank account'
 
   # Variables: %plugin%
@@ -77,7 +84,7 @@ messages:
     - '&eminebank.plugin &7- Allow to use &e/minebank plugin'
     - '&eminebank.permissions &7- Allow to use &e/minebank permissions'
     - '&eminebank.updatechecker &7- Allow receive message if there is an update'
-    - '&eminebank.admin &7- Allow to use /bank set and other admin commands'
+    - '&eminebank.admin &7- Allow to use (admin) commands'
     - '&eminebank.use &7- Allow to use the bank'
     - '&eminebank.helpbank &7- Allow to use &e/bank help'
 
@@ -85,6 +92,12 @@ messages:
   command-no-argument: '%plugin% &7Use &e/minebank help &7to see the command list.'
   no-perm: '%plugin% &cYou don`t have permission to use that command.'
   console-error: '%plugin% &cYou can`t use that command in console.'
+
+config:
+  # Variables: %plugin%
+  bank-disabled: '%plugin% &cThe bank function is currently disabled.'
+  # Variables: %plugin%, %version%, %latestversion%, %link%
+  update-checker: '%plugin% &bNew version available &e(&f%latestversion%&e)&b. Download it here: &7%link%'
 
 # ############################################################################################################# #
 # +-----------------------------------------------------------------------------------------------------------+ #
@@ -109,7 +122,7 @@ bank:
     top: '%plugin% &eUsage: /bank top'
     bal: '%plugin% &eUsage: /bank bal [player]'
     max: '%plugin% &eUsage: /bank max <bal/level>'
-    level: '%plugin% &eUsage: /bank level'
+    level: '%plugin% &eUsage: /bank level [player]'
     levelup: '%plugin% &eUsage: /bank levelup'
   bal:
     # Variables: %plugin%, %balance%
@@ -148,7 +161,9 @@ bank:
     entry: '&e%position%. %player%: &a$%balance%'
   level:
     # Variables: %plugin%, %level%
-    current: '%plugin% &eYour bank level is: &a%level%'
+    yourLevel: '%plugin% &eYour bank level is: &a%level%'
+    # Variables: %plugin%, %player%, %level%
+    playerLevel: '%plugin% &e%player%`s balance is: &a$%level%'
   levelup:
     # Variables: %plugin%, %unlockPrice%
     notEnoughMoney: '%plugin% &cYou don`t have enough money in the bank to level up, you need $%unlockPrice%'

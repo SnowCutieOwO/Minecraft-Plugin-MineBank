@@ -15,7 +15,6 @@ public class MainConfigManager {
     private File configFile;
     private FileConfiguration config;
 
-    private String updateCheckerMessage, bankDisabledMessage;
     private int keepInBankPercentage;
     private long profitInterval; // in ticks
     private double withdrawInterest;
@@ -61,20 +60,10 @@ public class MainConfigManager {
 
     public void loadConfig() {
         FileConfiguration config = getConfig();
-        updateCheckerMessage = config.getString("config.update-message");
-        bankDisabledMessage = config.getString("config.bank-disabled-message");
         keepInBankPercentage = config.getInt("bank.profit.keep-in-bank");
         profitInterval = config.getLong("bank.profit.interval") * 20L; // Convert seconds to ticks
         withdrawInterest = config.getDouble("bank.interests.withdraw");
         boolean bankUse = config.getBoolean("config.bank-use"); // Nueva línea añadida
-    }
-
-    public String getUpdateCheckerMessage() {
-        return updateCheckerMessage;
-    }
-
-    public String getBankDisabledMessage() {
-        return bankDisabledMessage;
     }
 
     public int getKeepInBankPercentage() {
