@@ -1,0 +1,191 @@
+# ############################################################################################################# #
+# +-----------------------------------------------------------------------------------------------------------+ #
+# |                                                                                                           | #
+# |                      ███╗   ███╗██╗███╗  ██╗███████╗██████╗  █████╗ ███╗  ██╗██╗  ██╗                     | #
+# |                      ████╗ ████║██║████╗ ██║██╔════╝██╔══██╗██╔══██╗████╗ ██║██║ ██╔╝                     | #
+# |                      ██╔████╔██║██║██╔██╗██║█████╗  ██████╦╝███████║██╔██╗██║█████═╝                      | #
+# |                      ██║╚██╔╝██║██║██║╚████║██╔══╝  ██╔══██╗██╔══██║██║╚████║██╔═██╗                      | #
+# |                      ██║ ╚═╝ ██║██║██║ ╚███║███████╗██████╦╝██║  ██║██║ ╚███║██║ ╚██╗                     | #
+# |                      ╚═╝     ╚═╝╚═╝╚═╝  ╚══╝╚══════╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚══╝╚═╝  ╚═╝                     | #
+# |                                                                                                           | #
+# |                    Youtube:    www.youtube.com/@davigamer1614                                             | #
+# |                    Github:     https://github.com/Guayand0/Minecraft-Plugin-MineBank                      | #
+# |                                                                                                           | #
+# +-----------------------------------------------------------------------------------------------------------+ #
+# ############################################################################################################# #
+
+# ############################################################################################################# #
+# +-----------------------------------------------------------------------------------------------------------+ #
+# |                                                                                                           | #
+# |                    ███╗   ███╗███████╗ ██████╗ ██████╗ █████╗  ██████╗ ███████╗ ██████╗                   | #
+# |                    ████╗ ████║██╔════╝██╔════╝██╔════╝██╔══██╗██╔════╝ ██╔════╝██╔════╝                   | #
+# |                    ██╔████╔██║█████╗  ╚█████╗ ╚█████╗ ███████║██║  ██╗ █████╗  ╚█████╗                    | #
+# |                    ██║╚██╔╝██║██╔══╝   ╚═══██╗ ╚═══██╗██╔══██║██║  ╚██╗██╔══╝   ╚═══██╗                   | #
+# |                    ██║ ╚═╝ ██║███████╗██████╔╝██████╔╝██║  ██║╚██████╔╝███████╗██████╔╝                   | #
+# |                    ╚═╝     ╚═╝╚══════╝╚═════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═════╝                    | #
+# |                                                                                                           | #
+# +-----------------------------------------------------------------------------------------------------------+ #
+# ############################################################################################################# #
+
+messages:
+
+  # 可用内建变量: 无
+  help:
+    - '&b<-----------------&aMINEBANK 命令列表&b----------------->'
+    - '&e/minebank help &7- 显示帮助消息'
+    - '&e/minebank reload &7- 重载插件配置'
+    - '&e/minebank version &7- 显示插件版本'
+    - '&e/minebank author &7- 显示插件作者'
+    - '&e/minebank permissions &7- 显示插件权限列表'
+    - '&e/minebank plugin &7- 显示插件下载链接'
+    - '&e/bank help &7- 显示银行命令列表'
+    - '&7命令别称: &eminebank&7, &emb'
+
+  # 可用内建变量: 无
+  help-bank:
+    - '&b<-----------------&aMINEBANK 命令列表&b----------------->'
+    - '&e/bank help &7- 显示帮助消息'
+    - '&e/bank add <数量> &7- 存钱'
+    - '&e/bank add max &7- 将账户中的钱全部存入'
+    - '&e/bank take <数量> &7- 取钱'
+    - '&e/bank take max &7- 将银行中的钱全部取出'
+    - '&e/bank set <玩家名称> bal max &7- 将玩家的银行存满'
+    - '&e/bank set <玩家名称> bal <数量> &7- 设置玩家余额'
+    - '&e/bank set <玩家名称> level max &7- 将玩家银行等级设置为最高'
+    - '&e/bank set <玩家名称> level <等级> &7- 将玩家银行等级设置为 <指定等级>'
+    - '&e/bank set <玩家名称> level <等级> true &7- 设置银行等级, 并存至该等级上限'
+    - '&e/bank set <玩家名称> level <等级> false &7- 设置银行等级, 且在当前存款超出上限时将其抹去'
+    - '&e/bank top &7- 显示前十排行榜'
+    - '&e/bank bal &7- 显示你的余额'
+    - '&e/bank bal <玩家名称> &7- 显示其他玩家的余额'
+    - '&e/bank max bal &7- 显示最大容量'
+    - '&e/bank max level &7- 显示最大等级'
+    - '&e/bank level &7- 显示银行当前等级'
+    - '&e/bank level <玩家名称> &7- 显示其他玩家的银行等级'
+    - '&e/bank levelup &7- 升级银行账户'
+
+  # 可用内建变量: %plugin%
+  reload: '%plugin% &a插件已被重载.'
+
+  # 可用内建变量: %plugin%, %version%, %latestversion%
+  version: '%plugin% &a插件版本: &b%version%'
+
+  # 可用内建变量: %plugin%, %author%
+  author: '%plugin% &a插件作者: &b%author%'
+
+  # 可用内建变量: 无
+  permissions:
+    - '&b<-----------------&aMINEBANK 权限列表&b----------------->'
+    - '&eminebank.* &7- 管理员权限'
+    - '&eminebank.help &7- 允许使用命令 &e/minebank help'
+    - '&eminebank.reload &7- 允许使用命令 &e/minebank reload'
+    - '&eminebank.version &7- 允许使用命令 &e/minebank version'
+    - '&eminebank.author &7- 允许使用命令 &e/minebank author'
+    - '&eminebank.plugin &7- 允许使用命令 &e/minebank plugin'
+    - '&eminebank.permissions &7- 允许使用命令 &e/minebank permissions'
+    - '&eminebank.updatechecker &7- 允许接收更新消息'
+    - '&eminebank.admin &7- 允许使用(管理员)命令'
+    - '&eminebank.use &7- 允许使用银行'
+    - '&eminebank.helpbank &7- 允许使用命令 &e/bank help'
+
+  # 可用内建变量: %plugin%
+  command-no-argument: '%plugin% &7请输入 &e/minebank help &7获取帮助列表.'
+  no-perm: '%plugin% &c你没有使用此命令的权限.'
+  console-error: '%plugin% &c你不能在控制台执行该命令.'
+
+config:
+  # 可用内建变量: %plugin%
+  bank-disabled: '%plugin% &c插件已被禁用.'
+  # 可用内建变量: %plugin%, %version%, %latestversion%, %link%
+  update-checker: '%plugin% &b新版本可用 &e(&f%latestversion%&e)&b. 点此下载: &7%link%'
+
+# ############################################################################################################# #
+# +-----------------------------------------------------------------------------------------------------------+ #
+# |                                                                                                           | #
+# |  ██████╗  █████╗ ███╗  ██╗██╗  ██╗  ███╗   ███╗███████╗ ██████╗ ██████╗ █████╗  ██████╗ ███████╗ ██████╗  | #
+# |  ██╔══██╗██╔══██╗████╗ ██║██║ ██╔╝  ████╗ ████║██╔════╝██╔════╝██╔════╝██╔══██╗██╔════╝ ██╔════╝██╔════╝  | #
+# |  ██████╦╝███████║██╔██╗██║█████═╝   ██╔████╔██║█████╗  ╚█████╗ ╚█████╗ ███████║██║  ██╗ █████╗  ╚█████╗   | #
+# |  ██╔══██╗██╔══██║██║╚████║██╔═██╗   ██║╚██╔╝██║██╔══╝   ╚═══██╗ ╚═══██╗██╔══██║██║  ╚██╗██╔══╝   ╚═══██╗  | #
+# |  ██████╦╝██║  ██║██║ ╚███║██║ ╚██╗  ██║ ╚═╝ ██║███████╗██████╔╝██████╔╝██║  ██║╚██████╔╝███████╗██████╔╝  | #
+# |  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚══╝╚═╝  ╚═╝  ╚═╝     ╚═╝╚══════╝╚═════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═════╝   | #
+# |                                                                                                           | #
+# +-----------------------------------------------------------------------------------------------------------+ #
+# ############################################################################################################# #
+
+bank:
+  usage:
+    # 可用内建变量: %plugin%
+    bank: '%plugin% &eUsage: /bank <top/bal/max/level/levelup/add/take/set>'
+    add: '%plugin% &eUsage: /bank add <数量>'
+    take: '%plugin% &eUsage: /bank take <数量>'
+    set: '%plugin% &eUsage: /bank set <玩家名称> <bal/level> <数量> [true/false]'
+    top: '%plugin% &eUsage: /bank top'
+    bal: '%plugin% &eUsage: /bank bal [玩家名称]'
+    max: '%plugin% &eUsage: /bank max <bal/level>'
+    level: '%plugin% &eUsage: /bank level [玩家名称]'
+    levelup: '%plugin% &eUsage: /bank levelup'
+  bal:
+    # 可用内建变量: %plugin%, %balance%
+    yourBalance: '%plugin% &e当前银行存款为: &a$%balance%'
+    # 可用内建变量: %plugin%, %player%, %balance%
+    playerBalance: '%plugin% &e%player% 的银行存款为: &a$%balance%'
+  take:
+    # 可用内建变量: %plugin%, %amount%, %percentage%, %totalDeducted%
+    withdrawSuccess: '%plugin% &a你从银行中取出了 $%amount%. 收取了 $%totalDeducted% 的费用'
+    # 可用内建变量: %plugin%
+    withdrawFailure: '%plugin% &c输入数量不应小于零且应为整数.'
+    withdrawExceeds: '%plugin% &c银行中没有足够的钱可以取出.'
+    interestsWithdrawExceeds: '%plugin% &c利息已存满你的银行.'
+  add:
+    # 可用内建变量: %plugin%, %amount%
+    depositSuccess: '%plugin% &a你向银行中存入了 $%amount%.'
+    # 可用内建变量: %plugin%, %maxStorage%
+    balanceExceeds: '%plugin% &c当前等级下你不能存入超过 $%maxStorage% 的钱.'
+    # 可用内建变量: %plugin%
+    depositFailure: '%plugin% &c输入数量不应小于零且应为整数.'
+    notEnoughMoney: '%plugin% &c你没有足够的钱存入银行.'
+  set:
+    # 可用内建变量: %plugin%, %maxStorage%
+    maxBalance: '%plugin% &c数量不能大于 $%maxStorage%'
+    # 可用内建变量: %plugin%, %maxLevel%
+    maxLevel: '%plugin% &c等级不能大于 %maxLevel%'
+    # 可用内建变量: %plugin%, %player%, $%amount%
+    setBalanceSuccess: '%plugin% &a成功将玩家 %player% 的银行余额设置为了 $%amount%'
+    setLevelSuccess: '%plugin% &a成功将玩家 %player% 的银行等级设置为了 %amount%'
+    # 可用内建变量: %plugin%
+    depositFailure: '%plugin% &c输入数量不应小于零且应为整数.'
+  top:
+    # 可用内建变量: %plugin%
+    title: '%plugin% &e银行存款排行前十玩家:'
+    # 可用内建变量: %plugin%, %position%, %player%, %balance%
+    entry: '&e%position%. %player%: &a$%balance%'
+  level:
+    # 可用内建变量: %plugin%, %level%
+    yourLevel: '%plugin% &e当前银行等级为: &a%level%'
+    # 可用内建变量: %plugin%, %player%, %level%
+    playerLevel: '%plugin% &e%player% 的银行等级为: &a$%level%'
+  levelup:
+    # 可用内建变量: %plugin%, %unlockPrice%
+    notEnoughMoney: '%plugin% &c银行中没有足够的钱升级, 你至少需要 $%unlockPrice%'
+    # 可用内建变量: %plugin%, %unlockLevel%
+    unlockPriceError: '%plugin% &c等级 %unlockLevel% 的升级价格无效'
+    # 可用内建变量: %plugin%, %newLevel%
+    success: '%plugin% &a你成功升级至了 %newLevel%'
+    # 可用内建变量: %plugin%
+    alreadyMax: '%plugin% &c你已到达最大等级.'
+  max:
+    # 可用内建变量: %plugin%, %maxStorage%
+    maxStorage: '%plugin% &e当前等级可最多在银行存储: &a$%maxStorage%'
+    # 可用内建变量: %plugin%, %maxLevel%
+    maxLevel: '%plugin% &a银行最大等级为 &e%maxLevel%.'
+  profit:
+    # 可用内建变量: %plugin%, $%profit%, %percentage%
+    received: '%plugin% &a你存在银行中的钱收到了 $%profit% 的利息!'
+    # 可用内建变量: %plugin%, %amount%
+    min-storage: '%plugin% &c银行存款需要至少有 $%amount% 才可获取利息.'
+    # 可用内建变量: %plugin%
+    max-storage: '%plugin% &c银行账户已满, 请取走一些以使利息能够存入账户.'
+  # 可用内建变量: %plugin%
+  notPlayer: '%plugin% &c仅玩家可使用此命令.'
+  # 可用内建变量: %plugin%, %player%
+  notFoundPlayer: '%plugin% &c玩家 %player% 不存在.'
